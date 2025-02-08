@@ -1,12 +1,11 @@
 import pandas as pd
+import os
 
 def filter_exercises(bodyparts, skill_level, equipment):
     
-    file_path = "C:/megaGymDataset.csv"
+    
+    file_path = os.path.join(os.path.dirname(__file__), "cleaned_gym_dataset.csv")
     df = pd.read_csv(file_path)
-    df = df.drop(columns=["Unnamed: 0", "Rating", "RatingDesc"])
-    df = df[df["Equipment"] != "Other"]
-    df = df.dropna()
     
     
     mask = pd.Series(True, index=df.index)
@@ -33,17 +32,8 @@ def filter_exercises(bodyparts, skill_level, equipment):
 
 selected_bodyparts = ['Abdominals', 'Chest', 'Biceps']
 selected_skill_level = ['Beginner']
-selected_equipment = ['Bands', 'Barbell']
+selected_equipment = ['Bands', 'Barbell','']
 
 results = filter_exercises(selected_bodyparts, selected_skill_level, selected_equipment)
 
 print(results)
-
-
-
-
-
-
-
-
-
