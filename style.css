@@ -1,0 +1,4 @@
+svg.selected .cls {
+    fill: #4a90e2; /* Or whatever highlight color you prefer */
+    opacity: 0.7;
+}
