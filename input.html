@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beeswaxxed and Jacked</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="main.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Bee Healthy</h1>
+    </header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="team.html">The Team</a>
+        <a href="resources.html">Resources</a>
+    </nav>
+    <h2>Select Workout Days</h2>
+    <div class="button-group" id="days">
+        <button onclick="toggleSelection(this, 'days')">Monday</button>
+        <button onclick="toggleSelection(this, 'days')">Tuesday</button>
+        <button onclick="toggleSelection(this, 'days')">Wednesday</button>
+        <button onclick="toggleSelection(this, 'days')">Thursday</button>
+        <button onclick="toggleSelection(this, 'days')">Friday</button>
+        <button onclick="toggleSelection(this, 'days')">Saturday</button>
+        <button onclick="toggleSelection(this, 'days')">Sunday</button>
+    </div>
+
+    <h2>Select Target Muscles</h2>
+    <div class="button-group" id="muscles">
+        <button onclick="toggleSelection(this, 'muscles')">Chest</button>
+        <button onclick="toggleSelection(this, 'muscles')">Back</button>
+        <button onclick="toggleSelection(this, 'muscles')">Legs</button>
+        <button onclick="toggleSelection(this, 'muscles')">Arms</button>
+        <button onclick="toggleSelection(this, 'muscles')">Shoulders</button>
+        <button onclick="toggleSelection(this, 'muscles')">Core</button>
+    </div>
+
+    <button onclick="submitData()">Submit</button>
+
+    <script>
+        const selections = { days: [], muscles: [] };
+
+        function toggleSelection(button, type) {
+            const value = button.innerText;
+            if (selections[type].includes(value)) {
+                selections[type] = selections[type].filter(item => item !== value);
+                button.classList.remove('selected');
+            } else {
+                selections[type].push(value);
+                button.classList.add('selected');
+            }
+        }
+
+        function submitData() {
+            console.log(JSON.stringify(selections, null, 2));
+        }
+    </script>
+</body>
+</html>
