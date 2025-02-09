@@ -4,35 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meet the Team - HackHive2025</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="scripts/main.js" defer></script>
 </head>
 <body>
     <header>
-        <h1>Beeswaxxed and Jacked</h1>
+
+        <!-- <div class='bx bx-dumbbell'></div> -->
+        <a href="./index.html" class = "logo"><span>Bee</span> Healthy</a>
+
+        <div class='bx bx-menu' id = "menu-icon"></div>
+        <ul class="navbar">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./team.html">The Team</a></li>
+            <li><a href="./about.html">About</a></li> 
+        </ul>
+        <div class= "top-btn">
+            <a href="input.html" class = "nav-btn">Get Started</a>
+        </div>
     </header>
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="team.html">The Team</a>
-        <a href="resources.html">Resources</a>
-    </nav>
+
+
     <main>
-        <ul>
+        <div style="height: 125px"> </div>
+
+        <h1 class="team">The Team</h1>
+
+        <ul class="horizontal-list">
             <li>
                 <img src="images/jj.jpg" alt="Josh", height="200px", width="200px">
-                <p>Josh is a CS dude and likes frogs</p>
+                <p class="p-size-limit">Josh is a CS dude and likes frogs</p>
             </li>
             <li>
                 <img src="images/aw.jpg" alt="Alan", height="200px", width="200px">
-                <p>Alan is a CS dude and is taller than Josh</p>
+                <p class="p-size-limit">Alan is a CS dude and is taller than Josh</p>
             </li>
             <li>
-
+                <img src="images/e.jpg" alt="Eshaan", height="200px", width="200px">
+                <p class="p-size-limit">Eshaan is a gigachad</p>
             </li>
             <li>
-
+                <img src="images/a.png" alt = "Alreda", height="200px", width="200px">
+                <p class="p-size-limit">Something about Alreda</p>
             </li>
         </ul>
+        
     </main>
 </body>
 </html>
