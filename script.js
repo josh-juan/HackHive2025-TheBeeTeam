@@ -35,10 +35,16 @@ $(document).on('click', 'svg', function() {
 });
 
 // Handle front/back view toggle
-$(document).ready(function(){
+$(document).ready(function() {
     $('input[name=group1]').on('change', function() {
         const view = $(this).val();
+        
+        // Switch body view
         $('.human-body').hide();
         $(`#${view}`).fadeIn();
+        
+        // Update active button styling
+        $('.btn-group-toggle label').removeClass('active');
+        $(this).closest('label').addClass('active');
     });
 });
