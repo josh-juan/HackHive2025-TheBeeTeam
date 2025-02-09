@@ -185,6 +185,44 @@ span{
 
 
 
+
+/* making horizontal lists (for out images) */
+.horizontal-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.horizontal-list li {
+  margin-right: 10px;
+}
+
+/*Limit p size so it does not extend past images  */
+p.p-size-limit{
+  max-width: 200px;
+  text-align: center;
+}
+
+.team{
+  text-align: center;
+  font-size: 50px;
+}
+
+
+.p-big-text{
+  font-size: 30px;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+
+
+
+
+
+
 @media (max-width: 1200px){
   html{
       font-size: 55%;

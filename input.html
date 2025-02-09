@@ -263,6 +263,8 @@
 
                 outputString += "]}";
 
+                outputString = "Please remember to only output the schedule as JSON! " + outputString;
+
                 console.log(outputString);
 
                 
@@ -277,13 +279,41 @@
                         "Content-type": "application/json; charset=UTF-8"
                     }
                 })  .then((response) => response.json())
-                    .then((json) => console.log(json.response));
+                    .then((json) => parseResultsForJson(json));
                 
             }
 
             function parseResultsForJson(json){
 
+                let addChar = false;
+                let onlyJson = "";
+
+                console.log("RESULTS FROM FETCH: \n" + json.response)
+                //console.log(typeof(json.log));
+
+                for(let char of json.response){ //loop thorugh all the characters 
+
+                    if(char === '{'){
+                        addChar = true;
+                        onlyJson += char;
+                    }else if(char === '}'){
+                        addChar = false;
+                        onlyJson += char;
+                    }else{
+                        if(addChar){
+                            onlyJson += char;
+                        }
+                    }
+                }
+
+                console.log("\n\n");
+                //console.log(onlyJson);
+
+                let workoutPlan = JSON.parse(onlyJson);
+                console.log(workoutPlan);
             }
+
+
 
         </script>
 </body>
