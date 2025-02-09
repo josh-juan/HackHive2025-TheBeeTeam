@@ -25,3 +25,12 @@ Follow the workout plan with detailed instructions, images, and videos for each 
 Adjust as Needed:
 
 Modify your workout plan as you progress or as your goals change..
+
+
+### How to Run:
+1. Install Ollama
+2. Pull deepseek-v2:16b in ollama
+3. Use ollama create gymHelper-new -f ./Modelfile-new in the directory with Modelfile-new
+4. execute: ollama serve
+5. Open index.html in a webbrower 
+6. Use site to your heart's content
