@@ -148,6 +148,8 @@
             <button onclick="submitData()" class="submit-btn">Submit</button>
         </section>
     </div>
+
+
         <script>
             const selections = { days: [], muscles: []};
     
@@ -263,7 +265,7 @@
 
                 outputString += "]}";
 
-                outputString = "Please remember to only output the schedule as JSON! " + outputString;
+                outputString = "Please remember to only output the schedule as JSON! Please make sure to output properly named exercises! " + outputString;
 
                 console.log(outputString);
 
@@ -271,7 +273,7 @@
                 fetch("http://localhost:11434/api/generate", {
                     method: "POST",
                     body: JSON.stringify({
-                        model:"gymHelper",
+                        model:"gymHelper-new",
                         prompt: outputString,
                         stream: false
                     }),
@@ -311,6 +313,45 @@
 
                 let workoutPlan = JSON.parse(onlyJson);
                 console.log(workoutPlan);
+
+            }
+
+
+            function outputResults(workoutPlan){
+
+                let table = document.getElementById("table");
+                let tr = document.createElement("tr");
+
+                //loop through days create ul for each day
+
+                for(let day of Object.keys(workoutPlan)){
+                    let ul = document.createElement("ul");
+                    let subDiv = document.createElement("div");
+                    let p = document.createElement("p");
+
+                    let td = document.createElement("td");
+
+                    for(let exe of workoutPlan[day]){
+                        let li = document.createElement("li");
+                        li.innerText = exe;
+
+                        ul.appendChild(li);
+                    }
+
+
+                    
+                    p.innerText = day;
+                    subDiv.appendChild(p);
+                    subDiv.appendChild(ul);
+                    td.appendChild(subDiv);
+                    tr.appendChild(td);
+                }
+
+                table.appendChild(tr);
+                
+
+
+
             }
 
 
