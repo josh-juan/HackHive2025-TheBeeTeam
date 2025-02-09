@@ -221,8 +221,53 @@
             }
     
             function submitData() {
-                console.log(JSON.stringify(selections, null, 2));
+                let outputString = "{\"muscles\":[";
+                //"{\"muscles\":[\"chest\",\"back\",\"sholders\",\"glutes\",\"hamstrings\", \"arms\"],\"days\":[\"tuesday\",\"thursday\",\"saturday\"]}",
+                for(let mus in selections.muscles){
+                    if(mus == selections.muscles.length - 1){
+                        outputString += "\"" + selections.muscles[mus] + "\"";
+                    }else{
+                        outputString += "\"" + selections.muscles[mus] + "\",";
+                    }
+                    
+                }
+                
+                outputString  += "],\"days\":[";
+
+                for(let day in selections.days){
+                    if(day == selections.days.length - 1){
+                        outputString += "\"" + selections.days[day] + "\"";
+                    }else{
+                        outputString += "\"" + selections.days[day] + "\",";
+                    }
+
+                    
+                }
+
+                outputString += "]}";
+
+                console.log(outputString);
+
+                
+                fetch("http://localhost:11434/api/generate", {
+                    method: "POST",
+                    body: JSON.stringify({
+                        model:"gymHelper",
+                        prompt: outputString,
+                        stream: false
+                    }),
+                    headers: {
+                        "Content-type": "application/json; charset=UTF-8"
+                    }
+                })  .then((response) => response.json())
+                    .then((json) => console.log(json.response));
+                
             }
+
+            function parseResultsForJson(json){
+
+            }
+
         </script>
 </body>
 </html>
