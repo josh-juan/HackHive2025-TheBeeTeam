@@ -15,13 +15,13 @@
     <div class="page-container">
         <section id="header">
             <header>
-                <h1 href="index.html" >Bee Healthy</h1>
+                <h1 href="index.html" ><Span>Bee</Span> Healthy</h1>
             </header>
         </section>
     
 
     <section id="workout-days">
-        <h2>Select Workout Days</h2>
+        <h2>Select Workout <span>Days</span></h2>
         <div class="button-group" id="days">
             <input type="checkbox" id="Monday" value="Monday" onclick="toggleSelection(this, 'days')">
             <label for="Monday">Monday</label>
@@ -40,39 +40,8 @@
         </div>
     </section>
 
-        <h2 id = "muscle-selection">Select Target Muscles</h2>
-        <!--  
-        <div class="button-group" id="muscles">
-            <input type="checkbox" id="my-toggle" value="Abdominals" onclick="toggleSelection(this, 'muscles')">
-            <label for="my-toggle">Abdominals</label>
-            <input type="checkbox" id="my-toggle" value="Biceps" onclick="toggleSelection(this, 'muscles')">
-            <label for="my-toggle">Biceps</label>
-            <input type="checkbox" id="my-toggle" value="Calves" onclick="toggleSelection(this, 'muscles')">
-            <label for="my-toggle">Calves</label>
-            <input type="checkbox" id="my-toggle" value="Chest" onclick="toggleSelection(this, 'muscles')">
-            <label for="my-toggle">Chest</label>
-            <input type="checkbox" id="my-toggle" value="Forearms" onclick="toggleSelection(this, 'muscles')">
-            <label for="my-toggle">Forearms</label>
-            <input type="checkbox" id="my-toggle" value="Hamstrings" onclick="toggleSelection(this, 'muscles')">
-            <label for="my-toggle">Hamstrings</label>
-            <input type="checkbox" id="my-toggle" value="Lats" onclick="toggleSelection(this, 'muscles')">
-            <label for="my-toggle">Lats</label>
-            <input type="checkbox" id="my-toggle" value="Lower Back" onclick="toggleSelection(this, 'muscles')">
-            <label for="my-toggle">Lower Back</label>
-            <input type="checkbox" id="my-toggle" value="Traps" onclick="toggleSelection(this, 'muscles')">
-            <label for="my-toggle">Traps</label>
-            <input type="checkbox" id="my-toggle" value="Neck" onclick="toggleSelection(this, 'muscles')">
-            <label for="my-toggle">Neck</label>
-            <input type="checkbox" id="my-toggle" value="Quadriceps" onclick="toggleSelection(this, 'muscles')">
-            <label for="my-toggle">Quadriceps</label>
-            <input type="checkbox" id="my-toggle" value="Shoulders" onclick="toggleSelection(this, 'muscles')">
-            <label for="my-toggle">Shoulders</label>
-            <input type="checkbox" id="my-toggle" value="Triceps" onclick="toggleSelection(this, 'muscles')">
-            <label for="my-toggle">Triceps</label>
-            <input type="checkbox" id="my-toggle" value="Glutes" onclick="toggleSelection(this, 'muscles')">
-            <label for="my-toggle">Glutes</label>
-        </div>
-        -->
+        <h2 id = "muscle-selection">Select Target <span>Muscles</span></h2>
+
 
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
             <label class="active" data-tooltip title="Click here to display the front of the diagram!">
@@ -147,6 +116,18 @@
         <section id="submit-btn"></section>
             <button onclick="submitData()" class="submit-btn">Submit</button>
         </section>
+
+        <div id="loadingMessage" class="d-none">
+            <p>Loading your workout plan...</p>
+            <div class="spinner-border" role="status">
+            </div>
+        </div>
+
+        <div id="workoutPlan" class="d-none">
+            <div id="daysContainer"></div>
+        </div>
+
+
     </div>
 
 
@@ -240,6 +221,9 @@
             }
     
             function submitData() {
+                $('#loadingMessage').removeClass('d-none');
+                $('#workoutPlan').addClass('d-none');
+
                 let outputString = "{\"muscles\":[";
                 //"{\"muscles\":[\"chest\",\"back\",\"sholders\",\"glutes\",\"hamstrings\", \"arms\"],\"days\":[\"tuesday\",\"thursday\",\"saturday\"]}",
                 for(let mus in selections.muscles){
@@ -314,45 +298,39 @@
                 let workoutPlan = JSON.parse(onlyJson);
                 console.log(workoutPlan);
 
+                $('#loadingMessage').addClass('d-none');
+                $('#workoutPlan').removeClass('d-none');
+
+                displayWorkoutPlan(workoutPlan);
             }
 
 
-            function outputResults(workoutPlan){
+            function displayWorkoutPlan(workoutPlan) {
+            const daysContainer = $('#daysContainer');
+            daysContainer.empty();  
 
-                let table = document.getElementById("table");
-                let tr = document.createElement("tr");
+           
+            Object.keys(workoutPlan).forEach(day => {
+            let dayDiv = $('<div class="day"></div>');
+            let dayTitle = $('<h3></h3>').text(day); 
+            let workoutList = $('<ul></ul>');  
 
-                //loop through days create ul for each day
-
-                for(let day of Object.keys(workoutPlan)){
-                    let ul = document.createElement("ul");
-                    let subDiv = document.createElement("div");
-                    let p = document.createElement("p");
-
-                    let td = document.createElement("td");
-
-                    for(let exe of workoutPlan[day]){
-                        let li = document.createElement("li");
-                        li.innerText = exe;
-
-                        ul.appendChild(li);
-                    }
-
-
-                    
-                    p.innerText = day;
-                    subDiv.appendChild(p);
-                    subDiv.appendChild(ul);
-                    td.appendChild(subDiv);
-                    tr.appendChild(td);
-                }
-
-                table.appendChild(tr);
-                
-
-
-
+            
+            if (Array.isArray(workoutPlan[day])) {
+                workoutPlan[day].forEach(workout => {
+                    let workoutItem = $('<li></li>').text(workout);  
+                    workoutList.append(workoutItem);  
+                });
+            } else {
+                let noWorkouts = $('<li></li>').text('No exercises for this day.');
+                workoutList.append(noWorkouts);
             }
+
+         
+            dayDiv.append(dayTitle, workoutList);
+            daysContainer.append(dayDiv);  
+            });
+}
 
 
 
