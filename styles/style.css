@@ -142,6 +142,7 @@ span{
 
 .home-img img{
   width: 45vw;
+  padding-left: 20rem;
 }
 
 .home-img::before{
@@ -181,3 +182,4 @@ span{
   color: var(--text-color);
   box-shadow: 0 0 1.6rem var(--main-color);
 }
+
